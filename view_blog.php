@@ -2,6 +2,7 @@
 $video_id = $_GET['video_id'];
 $article_id = $_GET['article_id'];
 
+
 $base_website="http://localhost:8080";
 
 $api_url = $base_website."/get_article?video_id=".$video_id."&article_id=".$article_id;

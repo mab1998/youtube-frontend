@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
-<body>
+<body style="background-color: #f2f2f2;">
     <div class="container mx-auto"> <!-- Add mx-auto class for horizontal centering -->
         <div>
             <?php $current_page = 'home'; include('sidebar.php'); ?>
@@ -85,70 +85,104 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1 class="text-4xl font-bold mb-6 text-center">Youtube Tools</h1>
 
 
-            <div class="w-full flex justify-center">
-                <form method="POST" action="/home">
-                    <input type="text" id="youtube_url" name="youtube_url" class="mr-2 border border-gray-300 rounded-md p-2 w-full" placeholder="Enter YouTube URL">
-                    <select id="language" name="language" class="border border-gray-300 rounded-md p-2 w-1/4">
-                        <option value="en">English</option>
-                        <option value="fr">French</option>
-                        <option value="es">Spanish</option>
-                        <!-- Add more language options here -->
-                    </select>
-                    <div class="flex justify-center"> <!-- Add flex and justify-center classes for horizontal centering -->
-                    </div>
-                </form>
-            </div>
-
-                                    <button type="submit" id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">Create New Article</button>
+ <section class="mb-6 bg-white p-4">
+     <label for="url" class="block mb-2 text-sm font-medium">Video/Audio URL</label>
+     <input type="link" id="url" placeholder="Insert any YouTube video, Google Podcast, Vimeo or any downloadable video or audio link to transform it into a blog" 
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+  </section>
 
 
 
-<?php
-require_once 'db_config.php';
+  <div id="blog-settings" class="bg-white rounded-lg shadow-md p-6"> 
+  <div class="text-lg font-semibold mb-4">Blog Settings</div>
 
-// Retrieve videos table content
-$sql = "SELECT * FROM videos";
-$result = mysqli_query($conn, $sql);
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <div>
+      <label for="blog-size" class="block text-sm font-medium text-gray-700 mb-2">Blog Size</label>
+      <select id="blog-size" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <option value="short">Short</option>
+        <option value="medium" selected>Medium</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+    <div>
+      <label for="blog-tone" class="block text-sm font-medium text-gray-700 mb-2">Blog Tone</label>
+      <select id="blog-tone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <option value="formal">Formal</option>
+        <option value="engaging" selected>Engaging</option>
+        <option value="humorous">Humorous</option>
+      </select>
+    </div>
+    <div>
+      <label for="media-language" class="block text-sm font-medium text-gray-700 mb-2">Media Language</label>
+      <select id="media-language" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <option value="global-english" selected>Global English</option>
+        <option value="spanish">Spanish</option>
+        <option value="french">French</option>
+      </select>
+    </div>
+    <div>
+      <label for="blog-language" class="block text-sm font-medium text-gray-700 mb-2">Blog Language</label>
+      <select id="blog-language" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <option value="english" selected>English</option>
+        <option value="spanish">Spanish</option>
+        <option value="french">French</option>
+      </select>
+    </div>
 
-if (mysqli_num_rows($result) > 0) {
-    echo '<table id="videosTable" class="table-auto">';
-    echo '<thead>';
-    echo '<tr>';
-    echo '<th class="px-4 py-2">Title</th>';
-        echo '<th class="px-4 py-2">Lang</th>';
+    <!-- <div id="blog-settings" class="bg-white rounded-lg shadow-md p-6">  -->
+  <div class="mb-6"> 
+    <label for="writers-pov" class="block text-sm font-medium text-gray-700 mb-2">Writer's Point of View</label>
+    <select id="writers-pov" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <option value="first-person">First Person (I & We)</option>
+      <option value="second-person">Second Person (You)</option>
+      <option value="third-person" selected>Third Person (He, She, They, It)</option>
+    </select>
+  </div>
 
-    echo '<th class="px-4 py-2">URL</th>';
+  <!-- </div> -->
 
-    echo '<th class="px-4 py-2">Action</th>';
-    echo '</tr>';
-    echo '</thead>';
-    echo '<tbody>';
+  </div>
 
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo '<tr>';
-        echo '<td class="border px-4 py-2">' . $row['title'] . '</td>';
-                echo '<td class="border px-4 py-2">' . $row['lang'] . '</td>';
+  <div class="mb-6">
+    <div class="text-xs text-gray-500 mb-3">Blog Generation Mode</div>
+    <div class="flex items-center space-x-4">
+      <label class="flex items-center">
+        <input type="radio" name="generationMode" class="form-radio h-4 w-4 text-blue-500" checked>
+        <span class="ml-2 text-sm">Auto-Pilot</span>
+      </label>
+      <label class="flex items-center">
+        <input type="radio" name="generationMode" class="form-radio h-4 w-4 text-blue-500">
+        <span class="ml-2 text-sm">Co-Pilot</span>
+      </label>
+    </div>
+  </div>
 
-        echo '<td class="border px-4 py-2"><a href="' . $row['url'] . '" target="_blank">' . $row['url'] . '</a></td>';
-        echo '<td class="border px-4 py-2"><a target="_blank" href="/videos?id=' . $row['id'] . '"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onclick="goToVideoPage(' . $row['id'] . ')"><i class="fas fa-arrow-right"></i> Go</button></a></td>';
-        echo '</tr>';
-    }
+  <!-- <div class="flex items-start mb-4">
+    <div class="flex items-center h-5">
+      <input id="affiliate-opt-in" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+    </div>
+    <div class="ml-3 text-sm">
+      <label for="affiliate-opt-in" class="font-medium text-gray-700">Opt In for Affiliate Commission</label>
+      <p class="text-gray-500 text-xs">Beta - we're currently improving our algorithm</p>
+    </div>
+  </div>
+  <div class="flex items-start">
+    <div class="flex items-center h-5">
+      <input id="content-credit" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+    </div>
+    <div class="ml-3 text-sm">
+      <label for="content-credit" class="font-medium text-gray-700">Give credit to content creator</label>
+    </div>
+  </div> -->
 
-    echo '</tbody>';
-    echo '</table>';
+</div>
 
-    // Add DataTables library and initialize the table
-    echo '<script>';
-    echo '$(document).ready(function() {';
-    echo '    $("#videosTable").DataTable();';
-    echo '});';
-    echo '</script>';
-} else {
-    echo "No videos found";
-}
 
-?>
-            
+
+
+            <button type="submit" id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">Generate New Article</button>
+    
 
             
          
@@ -157,53 +191,6 @@ if (mysqli_num_rows($result) > 0) {
         </div>
     </div>
 
-    <script>
-
-        // function validateYouTubeUrl(url) {
-        //     // Regular expression to validate YouTube URL
-        //     var pattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/
-        //     return pattern.test(url);
-        // }
-
-        // function sendRequest() {
-        //     var youtubeUrl = document.getElementById('youtube_url').value;
-        //     var language = document.getElementById('language').value;
-
-        //     if (validateYouTubeUrl(youtubeUrl)) {
-        //         // Disable the button and show spinner
-        //         var button = document.getElementById('go_button');
-        //         button.disabled = true;
-        //         button.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
-
-        //         // Send request to /create_video
-        //         var xhr = new XMLHttpRequest();
-        //         xhr.open('POST', '/create_video', true);
-        //         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        //         xhr.onreadystatechange = function() {
-        //             if (xhr.readyState === 4) {
-        //                 if (xhr.status === 200) {
-        //                     // Request successful, reload the page
-        //                     location.reload();
-        //                 } else {
-        //                     // Request failed, show error alert
-        //                     alert('Request failed');
-        //                 }
-
-        //                 // Enable the button and restore its original text
-        //                 button.disabled = false;
-        //                 button.innerHTML = 'Go';
-        //             }
-        //         };
-        //         xhr.send('youtube_url=' + encodeURIComponent(youtubeUrl) + '&language=' + encodeURIComponent(language));
-        //     } else {
-        //         // Invalid YouTube URL, show error message
-        //         alert('Invalid YouTube URL');
-        //     }
-        // }
-
-        // document.getElementById('go_button').addEventListener('click', sendRequest);
-
-    </script>
 
 
 </body>

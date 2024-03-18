@@ -115,52 +115,38 @@
 
         
 
-                                    <button id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">
-                                        <a href="/create_blog" target="_blank">Create New Article</a>
-                                    </button>
+                                    <button type="submit" id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">Create New Article</button>
 
 
 
 <?php
-// $articles = [
-//     [
-//         'title' => 'Article 1',
-//         'lang' => 'English',
-//         'url' => 'https://example.com/article1'
-//     ],
-//     [
-//         'title' => 'Article 2',
-//         'lang' => 'French',
-//         'url' => 'https://example.com/article2'
-//     ],
-//     [
-//         'title' => 'Article 3',
-//         'lang' => 'Spanish',
-//         'url' => 'https://example.com/article3'
-//     ]
-// ];
+// require_once 'db_config.php';
 
-if (!empty($articles)) {
+// Retrieve videos table content
+$sql = "SELECT * FROM videos";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
     echo '<table id="videosTable" class="table-auto">';
     echo '<thead>';
     echo '<tr>';
-    echo '<th class="px-4 py-2">Article_id</th>';
-
     echo '<th class="px-4 py-2">Title</th>';
-    // echo '<th class="px-4 py-2">Article</th>';
+        echo '<th class="px-4 py-2">Lang</th>';
+
     echo '<th class="px-4 py-2">URL</th>';
+
     echo '<th class="px-4 py-2">Action</th>';
     echo '</tr>';
     echo '</thead>';
     echo '<tbody>';
 
-    foreach ($articles as $article) {
+    while ($row = mysqli_fetch_assoc($result)) {
         echo '<tr>';
-        echo '<td class="border px-4 py-2">' . $article['article_id'] . '</td>';
+        echo '<td class="border px-4 py-2">' . $row['title'] . '</td>';
+                echo '<td class="border px-4 py-2">' . $row['lang'] . '</td>';
 
-        echo '<td class="border px-4 py-2">' . $article['title'] . '</td>';
-        echo '<td class="border px-4 py-2"><a href=https://www.youtube.com/watch?v="' . $article['video_id'] . '" target="_blank">https://www.youtube.com/watch?v=' . $article['video_id'] . '</a></td>';
-        echo '<td class="border px-4 py-2"><a target="_blank" href="/blog?video_id=' . $article['video_id'] . '?&article_id='.$article['article_id'].'"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" ><i class="fas fa-arrow-right"></i> Go</button></a></td>';
+        echo '<td class="border px-4 py-2"><a href="' . $row['url'] . '" target="_blank">' . $row['url'] . '</a></td>';
+        echo '<td class="border px-4 py-2"><a target="_blank" href="/videos?id=' . $row['id'] . '"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onclick="goToVideoPage(' . $row['id'] . ')"><i class="fas fa-arrow-right"></i> Go</button></a></td>';
         echo '</tr>';
     }
 
@@ -174,7 +160,7 @@ if (!empty($articles)) {
     echo '});';
     echo '</script>';
 } else {
-    echo "No articles found";
+    echo "No videos found";
 }
 
 ?>
