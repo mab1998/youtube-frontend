@@ -13,6 +13,7 @@ curl_close($ch);
 if ($response) {
     // Process the response here
     // echo $response;
+    // exit;
     $response = json_decode($response, true);
     // echo $response;
 
@@ -70,7 +71,7 @@ if ($response) {
 </script>
 
 <div class="mt-4 mb-4">
-    <input id="blog_title" type="text" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Blog Title"  value=<?php echo $response["title"]; ?>>
+    <input id="blog_title" type="text" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Blog Title"  value="<?php echo $response["title"]; ?>">
 </div>
 
 
@@ -118,22 +119,32 @@ if ($response) {
 
 
         fetch('http://localhost:8080/save_article', {
-        method: 'POST',
-        headers: {
+          method: 'POST',
+          headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+          },
+          body: JSON.stringify({
             video_id: 'your_video_id',
             article_id: 'pdf:108',
             title: 'your_title',
             article: 'your_article',
-        }),
+          }),
         })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch((error) => {
-        console.error('Error:', error);
-        });
+          .then(response => {
+            if (response.ok) {
+              <?php
+              echo "var video_id = '" . $video_id . "';";
+              echo "var article_id = '" . $article_id . "';";
+              echo "window.location.href = `/blog?video_id=${video_id}&article_id=${article_id}`;";
+           ?>
+
+            } else {
+              throw new Error('Request failed');
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
 
 
 

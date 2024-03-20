@@ -25,11 +25,15 @@
 
     curl_close($ch);
 
+    
+
 
     // $videoInfo = json_decode($videoInfoResponse, true);
 
 
     $articles = json_decode($videoInfoResponse, true);
+    // echo $videoInfoResponse;
+    // exit;
     // if (isset($videoInfo[0]['title'])) {
     //     echo $videoInfo[0]['title'];
     // } else {
@@ -115,7 +119,7 @@
 
         
 
-                                    <button id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">
+                                    <button  class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">
                                         <a href="/create_blog" target="_blank">Create New Article</a>
                                     </button>
 

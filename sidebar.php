@@ -7,7 +7,7 @@ $current_page = $_SERVER['REQUEST_URI'];
 <div class="fixed top-0 left-0 h-screen w-64 bg-gray-800">
     <div class="flex flex-col justify-between h-full p-4">
         <div>
-            <a href="/" class="text-white font-bold">Your App</a>
+            <a href="/" class="text-white font-bold">Youtube Transcript</a>
         </div>
 
         <ul class="space-y-2">

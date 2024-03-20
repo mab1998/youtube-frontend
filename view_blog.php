@@ -14,8 +14,11 @@ curl_close($ch);
 if ($response) {
     // Process the response here
     // echo $response;
+    // echo $response;
+    // exit;
     $response = json_decode($response, true);
     // echo $response;
+    // exit;
 
 
 
@@ -25,7 +28,7 @@ if ($response) {
     exit;
 }
 
-// echo $api_url;
+// echo $response;
 // exit;
 
 ?>
@@ -103,10 +106,10 @@ if ($response) {
                     <button class="copy-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         <i class="fas fa-copy"></i> Copy HTML
                     </button>
-                    <button class="download-pdf bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button class="download-pdf bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled>
                         <i class="fas fa-download"></i> Download PDF
                     </button>
-                    <button class="download-doc  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button class="download-doc  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" disabled>
                         <i class="fas fa-download"></i> Download DOC
                     </button>
                     <button class="edit-blog bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -137,7 +140,10 @@ if ($response) {
                     <div class="bg-white p-4 shadow-lg rounded-lg mb-8">
                         <h2 class="text-xl font-bold mb-4">Keywords :</h2>
                         <ul class="flex flex-wrap">
-                            <?php foreach ($response["keywords"] as $keyword) { ?>
+                            <?php 
+                            
+                            
+                            foreach ($response["keywords"] as $keyword) { ?>
                                 <li class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full mr-2 mb-2"><?php echo $keyword; ?></li>
                             <?php } ?>
                         </ul>
@@ -247,29 +253,15 @@ downloadPDFButton.addEventListener('click', () => {
 // DOCX Download 
 const downloadDOCButton = document.querySelector('.download-doc');
 downloadDOCButton.addEventListener('click', () => {
+    const videoId = "videoId"; // Update with the actual video ID
+    const type = 'docx';
+    const params = { video_id: videoId, type: type };
+    const queryString = new URLSearchParams(params).toString();
+    const url = `http://localhost:8080/download_article?${queryString}`;
 
-
-  const videoId = 'your_video_id'; // Replace 'your_video_id' with the actual video ID
-        $videoId = 'your_video_id'; // Replace 'your_video_id' with the actual video ID
-
-        $params = [
-            'video_id' => $videoId,
-            'type' => 'docx'
-        ];
-
-        $queryString = http_build_query($params);
-        $base_url = "http://localhost:8080";
-        $url = $base_url . '/download_article?' . $queryString;
-
-        $response = file_get_contents($url);
-        console.log($response);
-
-        // Handle the response here
-
-        window.open(url, '_blank');
-    
-    
-    });
+    // Directly trigger download
+    window.open(url, '_blank'); 
+});
 
 // Copy HTML
 const copyHTMLButton = document.querySelector('.copy-button');
@@ -283,8 +275,8 @@ copyHTMLButton.addEventListener('click', () => {
 // Edit Blog (Illustrative)
 const editBlogButton = document.querySelector('.edit-blog');
 editBlogButton.addEventListener('click', () => {
-    const blogId = <?php echo $response["article_id"]; ?>; // Assuming you have a way to get the blog's ID
-    window.location.href = `/edit/${blogId}`; 
+    const blogId = "<?php echo $response["article_id"]; ?>"; // Assuming you have a way to get the blog's ID
+    window.location.href = `/edit_blog?article_id=${blogId}&video_id=<?php echo $video_id ?>`; 
 });
 
 // Delete Blog
@@ -292,11 +284,20 @@ const deleteBlogButton = document.querySelector('.delete-blog');
 deleteBlogButton.addEventListener('click', () => {
     if (confirm('Are you sure you want to delete this blog?')) {
 
-        const blogId = <?php echo $response["article_id"]; ?>; // Assuming you have a way to get the blog's ID
-        fetch(`/delete/${blogId}`, { method: 'DELETE' })
+        const blogId = "<?php echo $response["article_id"]; ?>"; // Assuming you have a way to get the blog's ID
+        const base_url = 'http://localhost:8080';
+        fetch(base_url+`/delete_article/${blogId}`, { method: 'DELETE' })
             .then(response => { 
                 if (response.ok) {
-                    // Remove blog element or display success message
+                    response.json().then(data => {
+                        const status = data.status;
+                        if (status === "success") {
+                            alert("Success delete");
+                            window.location.href = "/";
+                        } else {
+                            alert("Delete failed");
+                        }
+                    });
                 } else {
                     // Handle error 
                 }

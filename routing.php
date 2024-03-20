@@ -28,7 +28,10 @@ function handleRoute() {
         $params = substr($uri, strlen('/create_blog'));
         return 'create_blog.php' ;
     } 
-    
+      elseif (strpos($uri, '/waiting') === 0) {
+        $params = substr($uri, strlen('/waiting'));
+        return 'waiting.php' ;
+    } 
     
     else {
         return '404.php'; 
