@@ -18,9 +18,9 @@
 
 
 
-                <label for="gpt-select" class="block text-gray-700 mb-2">GPT Model</label>
+                <label for="gpt-select" class="block text-gray-700 mb-2"> Model</label>
                 <div class="relative"> <select id="gpt-select" class="block w-full p-3 border rounded">
-                        <option value="gpt-4">GPT-4</option>
+                        <option value="gemini-pro">Gemini Pro</option>
                         </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -35,7 +35,7 @@
                 </div> -->
 
                 <div class="mb-4">
-                    <label for="transcript-summarization" class="block text-gray-700 mb-2">Prompt Summarize Transcript</label>
+                    <label for="transcript-summarization" class="block text-gray-700 mb-2">Prompt</label>
                     <textarea id="transcript-summarization" class="w-full p-3 border rounded" rows="5"></textarea>
                 </div>
 
@@ -56,7 +56,7 @@
             document.getElementById('gpt-select').value = data.gptModel || 'gpt-4'; // Default to gpt-4
             // document.getElementById('transcript-to-article').value = data.transcriptToArticle || '';
             document.getElementById('transcript-summarization').value = data.transcriptSummarization || '';
-            document.getElementById('openai-key').value = data.openaiKey || '';
+            document.getElementById('openai-key').value = data.geminiKey || '';
 
         })
         .catch(error => {
@@ -77,7 +77,7 @@ window.addEventListener('load', loadSettings);
             var gptSelect = document.getElementById('gpt-select');
             // var transcriptToArticle = document.getElementById('transcript-to-article');
             var transcriptSummarization = document.getElementById('transcript-summarization');
-                var openaiKey = document.getElementById('openai-key');
+                var geminiKey = document.getElementById('openai-key');
 
 
             
@@ -85,9 +85,9 @@ window.addEventListener('load', loadSettings);
             // Create an object with the values
             var data = {
                 gptModel: gptSelect.value,
-                transcriptToArticle: transcriptToArticle.value,
+                // transcriptToArticle: transcriptToArticle.value,
                 transcriptSummarization: transcriptSummarization.value,
-                openaiKey: openaiKey.value
+                geminiKey: geminiKey.value
             };
 
             const base_url = 'http://localhost:8080';

@@ -180,7 +180,24 @@ document.getElementById('go_button').addEventListener('click', function() {
   var writersPov = document.getElementById('writers-pov').value;
   const base_url = 'http://localhost:8080';
 
+  function generateRandomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  var randomString = generateRandomString(6);
+  video_id=randomString
+
+var now = new Date();
+var article_id = `${video_id}_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}${now.getMilliseconds().toString().padStart(3, '0')}`;
   
+
+
 
   // Make an XHR POST request to the create_article endpoint
   var xhr = new XMLHttpRequest();
@@ -206,29 +223,34 @@ document.getElementById('go_button').addEventListener('click', function() {
     blog_language: language,
     media_language: mediaLanguage,
     blog_tone: blogTone,
-    blog_size: blogSize
+    blog_size: blogSize,
+    article_id: article_id
   });
 
+  document.getElementById('go_button').disabled = true;
+  document.getElementById('go_button').innerHTML = 'Waiting...';
+
+  xhr.addEventListener('loadstart', function() {
+    // Code to execute when the XHR request starts sending
+    window.location.href = '/waiting?' + "article_id" + '=' + article_id;
+
+    console.log('XHR request started sending');
+  });
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-
         var response = JSON.parse(xhr.responseText);
-              if (response.status === 'success') {
-              var responseObj = JSON.parse(xhr.responseText);
-              window.location.href = '/waiting?video_id=' + responseObj.video_id + '&article_id=' + responseObj.article_id;
-
-                // alert(response.message);
-
-              } else {
-                alert('Request failed: ' + response.message);
-              }
-        // Success
-        // alert('Request successful');
-      }  else {
-        // Other failures
+        if (response.status === 'success') {
+          var responseObj = JSON.parse(xhr.responseText);
+          window.location.href = '/waiting?' + "article_id" + '=' + article_id;
+        } else {
+          alert('Request failed: ' + response.message);
+        }
+      } else {
         alert('Request failed');
       }
+      document.getElementById('go_button').disabled = false;
+      document.getElementById('go_button').innerHTML = 'Generate New Article';
     }
   };
 

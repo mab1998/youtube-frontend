@@ -53,16 +53,20 @@ function updateStatus(data) {
         // console.log(data.percentage);
         progress.style.width = data.percentage + '%'; 
     } else if (data.status === 'success') {
-        displaySuccess(articleId);
+        
+        displaySuccess(articleId,data.video_id);
     } else if (data.status === 'failed') {
-        displayError("Article processing failed");
+        
+        displayError(data.step);
+
+        // displayError("Article processing failed");
     }
 }
 
-function displaySuccess(articleId) {
+function displaySuccess(articleId,video_id) {
     statusIcon.innerHTML = '<i class="fas fa-check-circle text-green-500 fa-3x"></i>'; 
     statusMessage.textContent = "Article processed successfully!";
-    result.innerHTML = `<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="window.location.href='/blog?article_id=${articleId}'">View Article</button>`;
+    result.innerHTML = `<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="window.location.href='/blog?article_id=${articleId}&video_id=${video_id}'">View Article</button>`;
     result.classList.remove('hidden'); 
 }
 

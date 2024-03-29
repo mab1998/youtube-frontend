@@ -83,6 +83,10 @@ if ($response) {
 <button onclick="getOuterHTML()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full mt-4 mb-4">Save</button>
 
 <script>
+    <?php
+              echo "var video_id = '" . $video_id . "';";
+              echo "var article_id = '" . $article_id . "';";
+           ?>
     function getOuterHTML() {
         var editorElement = tinymce.activeEditor.getBody();
         var outerHTML = tinymce.DOM.getOuterHTML(editorElement);
@@ -90,8 +94,8 @@ if ($response) {
         blog_title = document.getElementById('blog_title').value;
 
         console.log(JSON.stringify({
-            "video_id": "<?php echo $video_id; ?>",
-            "article_id": "<?php echo $article_id; ?>",
+            "video_id": video_id,
+            "article_id": article_id,
             "title": blog_title,
             "article": outerHTML
         }));
@@ -124,17 +128,16 @@ if ($response) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            video_id: 'your_video_id',
-            article_id: 'pdf:108',
-            title: 'your_title',
-            article: 'your_article',
+            video_id: video_id,
+            article_id: article_id,
+            title: blog_title,
+            article: outerHTML,
           }),
         })
           .then(response => {
             if (response.ok) {
               <?php
-              echo "var video_id = '" . $video_id . "';";
-              echo "var article_id = '" . $article_id . "';";
+  
               echo "window.location.href = `/blog?video_id=${video_id}&article_id=${article_id}`;";
            ?>
 
