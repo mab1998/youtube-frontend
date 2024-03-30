@@ -12,7 +12,7 @@
     $videoInfoUrl = $base_url.'/get_all_articles';
 
 
-    // $base_url = 'https://3.82.226.43:8080';
+    // $base_url = 'https://api.findapply.com';
     // $videoInfoResponse = file_get_contents($videoInfoUrl);
 
     $ch = curl_init();

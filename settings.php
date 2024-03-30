@@ -49,7 +49,7 @@
     <script>
 
         function loadSettings() {
-    const base_url = 'https://3.82.226.43:8080'; 
+    const base_url = 'https://api.findapply.com'; 
     fetch(base_url + '/get_settings')
         .then(response => response.json())
         .then(data => {
@@ -90,7 +90,7 @@ window.addEventListener('load', loadSettings);
                 geminiKey: geminiKey.value
             };
 
-            const base_url = 'https://3.82.226.43:8080';
+            const base_url = 'https://api.findapply.com';
             // Send a POST request to the /save_settings endpoint
             fetch(base_url + '/save_settings', {
                 method: 'POST',

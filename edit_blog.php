@@ -2,7 +2,7 @@
 $video_id = $_GET['video_id'];
 $article_id = $_GET['article_id'];
 
-$base_website="https://3.82.226.43:8080";
+$base_website="https://api.findapply.com";
 
 $api_url = $base_website."/get_article?video_id=".$video_id."&article_id=".$article_id;
 $ch = curl_init($api_url);
@@ -101,7 +101,7 @@ if ($response) {
         }));
 
         // var xhr = new XMLHttpRequest();
-        // xhr.open("POST", "https://3.82.226.43:8080/save_article", true);
+        // xhr.open("POST", "https://api.findapply.com/save_article", true);
         // xhr.setRequestHeader('Content-Type', 'application/json');
         // xhr.send(JSON.stringify({
         //     "video_id": "<?php echo $video_id; ?>",
@@ -122,7 +122,7 @@ if ($response) {
         // }
 
 
-        fetch('https://3.82.226.43:8080/save_article', {
+        fetch('https://api.findapply.com/save_article', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
