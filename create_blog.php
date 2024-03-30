@@ -178,7 +178,7 @@ document.getElementById('go_button').addEventListener('click', function() {
   var blogTone = document.getElementById('blog-tone').value;
   var mediaLanguage = document.getElementById('media-language').value;
   var writersPov = document.getElementById('writers-pov').value;
-  const base_url = 'http://api.dentairedz.com';
+  const base_url = 'https://3.82.226.43:8080';
 
   function generateRandomString(length) {
     var result = '';

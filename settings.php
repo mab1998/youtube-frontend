@@ -49,7 +49,7 @@
     <script>
 
         function loadSettings() {
-    const base_url = 'http://api.dentairedz.com'; 
+    const base_url = 'https://3.82.226.43:8080'; 
     fetch(base_url + '/get_settings')
         .then(response => response.json())
         .then(data => {
@@ -90,7 +90,7 @@ window.addEventListener('load', loadSettings);
                 geminiKey: geminiKey.value
             };
 
-            const base_url = 'http://api.dentairedz.com';
+            const base_url = 'https://3.82.226.43:8080';
             // Send a POST request to the /save_settings endpoint
             fetch(base_url + '/save_settings', {
                 method: 'POST',

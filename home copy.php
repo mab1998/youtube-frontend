@@ -12,7 +12,7 @@
     $videoInfoUrl = $base_url.'/get_all_articles';
 
 
-    // $base_url = 'http://api.dentairedz.com';
+    // $base_url = 'https://3.82.226.43:8080';
     // $videoInfoResponse = file_get_contents($videoInfoUrl);
 
     $ch = curl_init();
