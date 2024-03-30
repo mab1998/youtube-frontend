@@ -35,7 +35,7 @@ const result = document.getElementById('result');
 const articleId = (new URLSearchParams(window.location.search)).get('article_id'); // Get article_id from URL
 
 function fetchArticleStatus() {
-    const base_url='http://localhost:8080';
+    const base_url='http://api.dentairedz.com';
     fetch(base_url+'/article_status?article_id=' + articleId)
         .then(response => response.json())
         .then(data => {

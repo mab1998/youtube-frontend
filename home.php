@@ -4,7 +4,7 @@
  
 
     // Make a GET request to the video-info endpoint
-    $base_url='localhost:8080';
+    $base_url='api.dentairedz.com';
     // $videoInfoUrl = $base_url+'/get_all_articles';
 
 
@@ -12,7 +12,7 @@
     $videoInfoUrl = $base_url.'/get_all_articles';
 
 
-    // $base_url = 'http://localhost:8080';
+    // $base_url = 'http://api.dentairedz.com';
     // $videoInfoResponse = file_get_contents($videoInfoUrl);
 
     $ch = curl_init();

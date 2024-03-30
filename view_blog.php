@@ -3,7 +3,7 @@ $video_id = $_GET['video_id'];
 $article_id = $_GET['article_id'];
 
 
-$base_website="http://localhost:8080";
+$base_website="http://api.dentairedz.com";
 
 $api_url = $base_website."/get_article?video_id=".$video_id."&article_id=".$article_id;
 $ch = curl_init($api_url);
@@ -221,7 +221,7 @@ function copyHtml() {
     //     ];
 
     //     $queryString = http_build_query($params);
-    //     $base_url = "http://localhost:8080";
+    //     $base_url = "http://api.dentairedz.com";
     //     $url = $base_url . '/download_article?' . $queryString;
 
     //     $response = file_get_contents($url);
@@ -257,7 +257,7 @@ downloadDOCButton.addEventListener('click', () => {
     const type = 'docx';
     const params = { video_id: videoId, type: type };
     const queryString = new URLSearchParams(params).toString();
-    const url = `http://localhost:8080/download_article?${queryString}`;
+    const url = `http://api.dentairedz.com/download_article?${queryString}`;
 
     // Directly trigger download
     window.open(url, '_blank'); 
@@ -285,7 +285,7 @@ deleteBlogButton.addEventListener('click', () => {
     if (confirm('Are you sure you want to delete this blog?')) {
 
         const blogId = "<?php echo $response["article_id"]; ?>"; // Assuming you have a way to get the blog's ID
-        const base_url = 'http://localhost:8080';
+        const base_url = 'http://api.dentairedz.com';
         fetch(base_url+`/delete_article/${blogId}`, { method: 'DELETE' })
             .then(response => { 
                 if (response.ok) {
