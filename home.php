@@ -4,7 +4,7 @@
  
 
     // Make a GET request to the video-info endpoint
-    $base_url='3.82.226.43:8080';
+    $base_url='https://3.82.226.43:8080';
     // $videoInfoUrl = $base_url+'/get_all_articles';
 
 
