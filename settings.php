@@ -13,7 +13,7 @@
             <div class="mb-4">
                 <div class="mb-4">
                     <label for="openai-key" class="block text-gray-700 mb-2">Gemini Pro API Key</label>
-                    <input type="text" id="openai-key" class="w-full p-3 border rounded">
+                    <input type="text" id="openai-key" class="w-full p-3 border rounded" readonly>
                 </div>
 
 
@@ -36,11 +36,11 @@
 
                 <div class="mb-4">
                     <label for="transcript-summarization" class="block text-gray-700 mb-2">Prompt</label>
-                    <textarea id="transcript-summarization" class="w-full p-3 border rounded" rows="5"></textarea>
+                    <textarea id="transcript-summarization" class="w-full p-3 border rounded" rows="5" readonly></textarea>
                 </div>
 
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Save Settings
+                    Save Settings 
                 </button>
             </form>
         </div>
