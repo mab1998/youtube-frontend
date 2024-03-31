@@ -80,6 +80,8 @@
   <option value="da">Danish</option>
   <option value="no">Norwegian</option>
   <option value="fi">Finnish</option>
+  <option value="telgu">Telgu</option>
+
 
       </select>
     </div>
@@ -106,6 +108,8 @@
         <option value="danish">Danish</option>
         <option value="norwegian">Norwegian</option>
         <option value="finnish">Finnish</option>
+          <option value="telgu">Telgu</option>
+
       </select>
     </div>
 
