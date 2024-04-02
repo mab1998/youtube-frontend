@@ -127,42 +127,9 @@
 
   </div>
 
-  <!-- <div class="mb-6">
-    <div class="text-xs text-gray-500 mb-3">Blog Generation Mode</div>
-    <div class="flex items-center space-x-4">
-      <label class="flex items-center">
-        <input type="radio" name="generationMode" class="form-radio h-4 w-4 text-blue-500" checked>
-        <span class="ml-2 text-sm">Auto-Pilot</span>
-      </label>
-      <label class="flex items-center">
-        <input type="radio" name="generationMode" class="form-radio h-4 w-4 text-blue-500">
-        <span class="ml-2 text-sm">Co-Pilot</span>
-      </label>
-    </div>
-  </div> -->
 
-  <!-- <div class="flex items-start mb-4">
-    <div class="flex items-center h-5">
-      <input id="affiliate-opt-in" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-    </div>
-    <div class="ml-3 text-sm">
-      <label for="affiliate-opt-in" class="font-medium text-gray-700">Opt In for Affiliate Commission</label>
-      <p class="text-gray-500 text-xs">Beta - we're currently improving our algorithm</p>
-    </div>
-  </div>
-  <div class="flex items-start">
-    <div class="flex items-center h-5">
-      <input id="content-credit" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-    </div>
-    <div class="ml-3 text-sm">
-      <label for="content-credit" class="font-medium text-gray-700">Give credit to content creator</label>
-    </div>
-  </div> -->
 
 </div>
-
-
-
 
             <button type="submit" id="go_button" class="mb-8 mt-8 bg-green-500 hover:bg-green-700 text-white font-bold mt-2 py-2 px-4 rounded-lg text-xl w-full">Generate New Article</button>
     
@@ -175,90 +142,181 @@
     </div>
 
 <script>
-document.getElementById('go_button').addEventListener('click', function() {
-  var youtubeUrl = document.getElementById('url').value;
-  var language = document.getElementById('blog-language').value;
-  var blogSize = document.getElementById('blog-size').value;
-  var blogTone = document.getElementById('blog-tone').value;
-  var mediaLanguage = document.getElementById('media-language').value;
-  var writersPov = document.getElementById('writers-pov').value;
-  const base_url = 'https://api.findapply.com';
+  document.getElementById('go_button').addEventListener('click', function() {
+    var youtubeUrl = document.getElementById('url').value;
+    var language = document.getElementById('blog-language').value;
+    var blogSize = document.getElementById('blog-size').value;
+    var blogTone = document.getElementById('blog-tone').value;
+    var mediaLanguage = document.getElementById('media-language').value;
+    var writersPov = document.getElementById('writers-pov').value;
+    const base_url = 'https://api.findapply.com';
 
-  function generateRandomString(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    function generateRandomString(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
     }
-    return result;
-  }
 
-  var randomString = generateRandomString(6);
-  video_id=randomString
+    var randomString = generateRandomString(6);
+    video_id=randomString
 
-var now = new Date();
-var article_id = `${video_id}_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}${now.getMilliseconds().toString().padStart(3, '0')}`;
+    var now = new Date();
+    var article_id = `${video_id}_${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}${now.getMilliseconds().toString().padStart(3, '0')}`;
   
+    console.log(mediaLanguage);
+    if (mediaLanguage == "telgu") {
+ alert("Telgu is not supported now");
+  return;
+      
 
+      document.getElementById('go_button').disabled = true;
+      document.getElementById('go_button').innerHTML = 'Waiting Downloading Audio ...';
 
+      // Send request get to base_url + '/download-audio',
+      var url = base_url + '/download-audio?url=' + encodeURIComponent(youtubeUrl);
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
 
-  // Make an XHR POST request to the create_article endpoint
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', base_url + '/create_article', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            if (data.status === "success") {
+              // Success
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        // Success
-        alert('Request successful');
-      } else {
-        // Failure
-        alert('Request failed');
-      }
-    }
-  };
+              // alert('Download Video MP3 successful : /n'+data.mp3);
 
-  var data = JSON.stringify({
-    youtube_url: youtubeUrl,
-    writer_point_of_view: writersPov,
-    blog_generation_mode: 'auto-Pilot', // Assuming this value is fixed
-    blog_language: language,
-    media_language: mediaLanguage,
-    blog_tone: blogTone,
-    blog_size: blogSize,
-    article_id: article_id
-  });
+              //make an XHR POST request to the transcribe-audio endpoint with parameters audio_url
 
-  document.getElementById('go_button').disabled = true;
-  document.getElementById('go_button').innerHTML = 'Waiting...';
+              document.getElementById('go_button').disabled = true;
+              document.getElementById('go_button').innerHTML = 'Waiting Transcripting Audio in AWS ...';
 
-  xhr.addEventListener('loadstart', function() {
-    // Code to execute when the XHR request starts sending
-    window.location.href = '/waiting?' + "article_id" + '=' + article_id;
+              var xhr_transcript = new XMLHttpRequest();
+              var params = {
+                audio_url: data.mp3
+              };
 
-    console.log('XHR request started sending');
-  });
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        if (response.status === 'success') {
-          var responseObj = JSON.parse(xhr.responseText);
-          window.location.href = '/waiting?' + "article_id" + '=' + article_id;
-        } else {
-          alert('Request failed: ' + response.message);
+              var url_transcript = base_url + '/transcribe-audio';
+
+              xhr_transcript.open('POST', url_transcript, true);
+              xhr_transcript.setRequestHeader('Content-Type', 'application/json');
+
+              xhr_transcript.onreadystatechange = function() {
+                if (xhr_transcript.readyState === 4) {
+                  if (xhr_transcript.status === 200) {
+                    var data_transcript = JSON.parse(xhr_transcript.responseText);
+
+                    if (data_transcript.status === "success") {
+                      alert('Transcribe Audio successful : /n' + data_transcript.transcript);
+                    } else {
+                      document.getElementById('go_button').disabled = true;
+                      document.getElementById('go_button').innerHTML = 'Generate New Article';
+                      alert('Transcribe Audio failed : /n' + data_transcript.error);
+                    }
+                  }
+                }
+              };
+
+              xhr_transcript.send(JSON.stringify(params));
+              // //send post url
+              // xhr_transcript.open('POST', url_transcript, true);
+              // xhr_transcript.onreadystatechange = function() {
+              //   if (xhr_transcript.readyState === 4) {
+              //     if (xhr_transcript.status === 200) {
+              //       var data_transcript = JSON.parse(xhr_transcript.responseText);
+
+              //       if (data_transcript.status === "success") {
+              //         alert('Transcribe Audio successful : /n'+data_transcript.transcript);
+              //       } else {
+              //         document.getElementById('go_button').disabled = true;
+              //         document.getElementById('go_button').innerHTML = 'Generate New Article';
+              //         alert('Transcribe Audio failed : /n'+data_transcript.error);
+              //       }
+              //     }
+              //   }
+              // };
+
+              xhr_transcript.send();
+
+            } else if (data.status === "failed") {
+              document.getElementById('go_button').disabled = false;
+              document.getElementById('go_button').innerHTML = 'Generate New Article';
+              alert('Download MP3 failed : /n'+data.message);
+              // Failure
+              // alert('GET request failed');
+            }
+          } else {
+            // Failure
+            document.getElementById('go_button').disabled = true;
+            document.getElementById('go_button').innerHTML = 'Waiting Downloading Audio ...';
+          }
         }
-      } else {
-        alert('Request failed');
-      }
-      document.getElementById('go_button').disabled = false;
-      document.getElementById('go_button').innerHTML = 'Generate New Article';
-    }
-  };
+      };
 
-  xhr.send(data);
+      xhr.send();
+
+    } else {
+      // Make an XHR POST request to the create_article endpoint
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', base_url + '/create_article', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            // Success
+            alert('Request successful');
+          } else {
+            // Failure
+            alert('Request failed');
+          }
+        }
+      };
+
+      var data = JSON.stringify({
+        youtube_url: youtubeUrl,
+        writer_point_of_view: writersPov,
+        blog_generation_mode: 'auto-Pilot', // Assuming this value is fixed
+        blog_language: language,
+        media_language: mediaLanguage,
+        blog_tone: blogTone,
+        blog_size: blogSize,
+        article_id: article_id
+      });
+
+      document.getElementById('go_button').disabled = true;
+      document.getElementById('go_button').innerHTML = 'Waiting...';
+
+      xhr.addEventListener('loadstart', function() {
+        // Code to execute when the XHR request starts sending
+        window.location.href = '/waiting?' + "article_id" + '=' + article_id;
+
+        console.log('XHR request started sending');
+      });
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.status === 'success') {
+              var responseObj = JSON.parse(xhr.responseText);
+              window.location.href = '/waiting?' + "article_id" + '=' + article_id;
+            } else {
+              alert('Request failed: ' + response.message);
+            }
+          } else {
+            alert('Request failed');
+          }
+          document.getElementById('go_button').disabled = false;
+          document.getElementById('go_button').innerHTML = 'Generate New Article';
+        }
+      };
+
+      xhr.send(data);
+    }
   });
 </script>
 
