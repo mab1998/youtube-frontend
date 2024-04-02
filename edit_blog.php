@@ -46,7 +46,10 @@ if ($response) {
 
     
     <!-- Place the first <script> tag in your HTML's <head> -->
-<script src="https://cdn.tiny.cloud/1/amwutoxujnznl2vsi5xpaypwgji2wjnxz76wbibyq54390vb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/amwutoxujnznl2vsi5xpaypwgji2wjnxz76wbibyq54390vb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+
+<script src="https://cdn.tiny.cloud/1/bznq7ni0sro8uh69a04vykh2urovyvh9kdiqotz13hypzzv4/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
 <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
 <script>

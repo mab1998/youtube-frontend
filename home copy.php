@@ -99,6 +99,7 @@
 <head>
     <title>Home</title>
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
