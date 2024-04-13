@@ -170,8 +170,8 @@
   
     console.log(mediaLanguage);
     if (mediaLanguage == "telgu") {
- alert("Telgu is not supported now");
-  return;
+ //alert("Telgu is not supported now");
+//  return;
       
 
       document.getElementById('go_button').disabled = true;
