@@ -204,7 +204,7 @@
               var url_transcript = base_url + '/transcribe-audio';
 
               xhr_transcript.open('POST', url_transcript, true);
-              xhr_transcript.setRequestHeader('Content-Type', 'application/json');
+              // xhr_transcript.setRequestHeader('Content-Type', 'application/json');
 
               xhr_transcript.onreadystatechange = function() {
                 if (xhr_transcript.readyState === 4) {
